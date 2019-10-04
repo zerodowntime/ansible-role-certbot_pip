@@ -1,0 +1,28 @@
+---
+# zerodowntime.certbot_pip/tasks/main.yml
+
+
+- name: Install certbot
+  pip:
+    name: "{{ certbot__package_name }}"
+    state: "{{ certbot__package_state }}"
+    virtualenv: "{{ certbot__virtualenv | default(omit, True) }}"
+
+
+- name: install certbot plugins
+  pip:
+    name: "{{ item }}"
+    state: "{{ certbot__plugins_state }}"
+    virtualenv: "{{ certbot__virtualenv | default(omit, True) }}"
+  loop: "{{ certbot__plugins }}"
+
+
+- name: Set certbot auto-renewing cron job
+  become: true
+  cron:
+    cron_file: certbot-renew
+    name: "certbot renew"
+    minute: "{{ certbot__renewal_time.minute|default('*') }}"
+    hour: "{{ certbot__renewal_time.hour|default('*') }}"
+    user: root
+    job: "{{ certbot__renewal_cmd }}"

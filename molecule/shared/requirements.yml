@@ -1,0 +1,8 @@
+---
+
+- src: git+git@git.zdt.io:ansible/roles/zerodowntime.python_pip.git
+  name: zerodowntime.python_pip
+
+- src: git+git@git.zdt.io:ansible/roles/zerodowntime.virtualenv.git
+  name: zerodowntime.virtualenv
+  when: certbot__virtualenv is not none

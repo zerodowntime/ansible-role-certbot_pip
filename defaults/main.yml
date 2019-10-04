@@ -1,0 +1,53 @@
+---
+# zerodowntime.certbot_pip/defaults/main.yml
+
+
+#? certbot__package_name:
+#?   type: string
+#?   description: Package name to be installed
+#?   required: True
+#?   default: certbot
+certbot__package_name: certbot
+
+
+#? certbot__package_state:
+#?   type: string
+#?   description: Whether to install the package or not
+#?   required: True
+#?   default: present
+certbot__package_state: present
+
+#? certbot__plugins:
+#?   type: list
+#?   description: Certbot plugins to be installed.
+#?   required: True
+#?   default: []
+certbot__plugins: []
+
+#? certbot__plugins_state:
+#?   type: string
+#?   description: Wheter to install or remove certbot plugins.
+#?   required: True
+#?   default: present
+certbot__plugins_state: "{{ certbot__package_state }}"
+
+#? certbot__virtualenv:
+#?   type: string
+#?   description: Path to a virtualenv directory to install certbot into.
+#?   required: True
+#?   default: !!null
+certbot__virtualenv: !!null
+
+#? certbot__renewal_cmd:
+#?   type: string
+#?   description: Reneval command
+#?   required: True
+certbot__renewal_cmd: "{{ certbot__virtualenv }}/bin/certbot renew --quiet"
+
+#? certbot__renewal_cmd:
+#?   type: dict
+#?   description: Reneval time
+#?   required: True
+certbot__renewal_time:
+  minute: "30"
+  hour: "6,18"

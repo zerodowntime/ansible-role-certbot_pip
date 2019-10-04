@@ -1,0 +1,27 @@
+---
+# zerodowntime.certbot_pip/meta/main.yml
+
+galaxy_info:
+  author: ZeroDowntime Team <ansible@zerodowntime.pl>
+  company: ZeroDowntime Sp. z o.o.
+  role_name: certbot_pip
+  description: Role to install Certbot package.
+  license: Apache License 2.0
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - 16.04
+  galaxy_tags:
+    - system
+
+dependencies:
+  - role: zerodowntime.python_pip
+
+  - role: zerodowntime.virtualenv
+    when: certbot__virtualenv is not none
